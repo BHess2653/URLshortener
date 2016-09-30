@@ -26,4 +26,4 @@ npm start
 
 | Method | URL | Response |
 |---|---|---|---|
-| POST | /api/v1/url | [{ "new_URL": "http://bhess2653.com/V07ytEve" }] |
+| POST | /api/v1/url | [{ "original_URL": "http://bhess2653.com/this-link-will-take-you-to-your-main-page" }, { "new_URL": "http://bhess2653.com/V07ytEve" }] |
