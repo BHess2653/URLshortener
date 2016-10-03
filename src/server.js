@@ -11,8 +11,10 @@ app.use(body_parser.urlencoded({
 }));
 app.use(body_parser.json());
 
-app.use('/api/v1', require('./routes/urlAPI')(express));
+app.use('/api/v1', require('./routes/api/urls')(express));
 
-exports.server = app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log('Server Active on port ', port);
 });
+
+module.exports = server;
