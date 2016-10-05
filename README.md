@@ -1,5 +1,5 @@
 # URL-Shortener
-This is a Static URL-Shortener, using fake data.
+This is a Simple URL-Shortener.
 
 ## Installation
 
@@ -13,6 +13,16 @@ Install all command line tools
 npm i -g nodemon
 ```
 
+## env
+create a .env file.
+```
+DB_NAME=dbName
+DB_HOST=dbUser
+DB_PORT=3306
+DB_USER=root
+DB_PASS=dbPass
+DB_SCHEMA=mysql
+```
 
 ## Start the server
 
@@ -26,4 +36,9 @@ npm start
 
 | Method | URL | Response |
 |---|---|---|---|
-| POST | /api/v1/url | [{ "original_URL": "http://bhess2653.com/this-link-will-take-you-to-your-main-page" }, { "new_URL": "http://bhess2653.com/V07ytEve" }] |
+| POST | /api/v1/urls | [{ "id": 1, "originalUrl": "https://www.google.com/", "newUrl": "TWUmFnrl", "createdAt": "2016-10-05T03:42:31.000Z", "updatedAt": "2016-10-05T03:42:31.000Z" }] |
+| GET | /api/v1/urls | [{ "id": 2, "originalUrl": "https://www.google.com/", "newUrl": "txGpFKb1", "createdAt": "2016-10-05T03:42:31.000Z", "updatedAt": "2016-10-05T03:42:31.000Z" }] |
+| GET | /api/v1/urls/:id | [{ "id": 3, "originalUrl": "https://www.google.com/", "newUrl": "rpAZoPEB", "createdAt": "2016-10-05T03:42:31.000Z", "updatedAt": "2016-10-05T03:42:31.000Z" }] |
+| POST | /api/v1/urls/:id | [{ "id": 3, "originalUrl": "https://www.google.com/", "newUrl": "akjwfba", "createdAt": "2016-10-05T03:42:31.000Z", "updatedAt": "2016-10-05T03:42:31.000Z" }] |
+| DELETE | /api/v1/urls/:id | [{ 1 }] |
+| GET | /go/:newUrl | [{ "https://www.google.com/" }] |
