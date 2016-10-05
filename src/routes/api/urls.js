@@ -1,53 +1,78 @@
-const urls = require('../../models/urls');
-
+const url = require('../../models/urls');
+const gen = require('../../models/genURL');
 
 module.exports = (express) => {
   const router = express.Router();
 
   // Create URL
-  router.post('/url', (req, res) => {
-    urls.add(req.body, (err) => {
+  router.post('/urls', (req, res) => {
+    const reqBody = req.body;
+    reqBody.newUrl = gen.shortUrl(url);
+    url.add(req.body,
+    // errorCallback
+    (err) => {
       res.status(500).json(err);
-    }, (data) => {
-      res.status(200).json(data);
-    });
-  });
-
-  // Find One URL
-  router.get('/url/:id', (req, res) => {
-    req.body.id = req.params.id;
-    urls.one(req.body, (err) => {
-      res.status(500).json(err);
-    }, (data) => {
+    },
+    // successCallback
+    (data) => {
       res.status(200).json(data);
     });
   });
 
   // Find All URLs
   router.get('/urls', (req, res) => {
-    urls.all((err) => {
+    url.all(
+    // errorCallback
+    (err) => {
       res.status(500).json(err);
-    }, (data) => {
+    },
+    // successCallback
+    (data) => {
       res.status(200).json(data);
     });
   });
 
-  // Delete URL
-  router.delete('/url/:id', (req, res) => {
-  req.body.id = req.params.id;
-    urls.remove(req.body, (err) => {
+  // Find One URL
+  router.get('/urls/:id', (req, res) => {
+    const reqBody = req.body;
+    reqBody.id = req.params.id;
+    url.one(req.body,
+    // errorCallback
+    (err) => {
       res.status(500).json(err);
-    }, (data) => {
+    },
+    // successCallback
+    (data) => {
       res.status(200).json(data);
     });
   });
 
   // Update URL
-  router.post('/url/:id', (req, res) => {
-  req.body.id = req.params.id;
-    urls.update(req.body, (err) => {
+  router.post('/urls/:id', (req, res) => {
+    const reqBody = req.body;
+    reqBody.id = req.params.id;
+    url.update(req.body,
+    // errorCallback
+    (err) => {
       res.status(500).json(err);
-    }, (data) => {
+    },
+    // successCallback
+    (data) => {
+      res.status(200).json(data);
+    });
+  });
+
+  // Delete URL
+  router.delete('/urls/:id', (req, res) => {
+    const reqBody = req.body;
+    reqBody.id = req.params.id;
+    url.remove(req.body,
+    // errorCallback
+    (err) => {
+      res.status(500).json(err);
+    },
+    // successCallback
+    (data) => {
       res.status(200).json(data);
     });
   });
