@@ -48,3 +48,13 @@ exports.remove = (data, err, success) => {
   }).then(success).catch(err);
   console.log('URL was removed from models');
 };
+
+// Redirect
+exports.go = (data, err, success) => {
+  db.url.find({
+    where: {
+      newUrl: data.newUrl,
+    },
+  }).then(success).catch(err);
+  console.log('One newURL was found from models');
+};
