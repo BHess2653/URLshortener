@@ -1,20 +1,28 @@
 {
   "name": "url_shortener",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BHess2653/URLshortener.git"
+  },
   "author": "Hess",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BHess2653/URLshortener/issues"
+  },
+  "homepage": "https://github.com/BHess2653/URLshortener#readme",
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "dotenv": "^2.0.0",
+    "body-parser": "1.15.2",
+    "dotenv": "2.0.0",
     "express": "4.14.0",
-    "mysql": "^2.11.1",
-    "sequelize": "^3.24.3"
+    "mysql": "2.11.1",
+    "sequelize": "3.24.3"
   },
   "devDependencies": {
     "eslint": "3.2.2",
