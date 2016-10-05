@@ -13,13 +13,13 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
   logging: false,
 });
 
-const url = sequelize.define('url', {
+const url = sequelize.define('urls', {
   originalUrl: {
     type: Sequelize.STRING,
   },
   newUrl: {
     type: Sequelize.STRING,
-  }
+  },
 });
 
 sequelize.sync();
