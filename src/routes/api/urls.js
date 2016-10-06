@@ -4,7 +4,9 @@ const gen = require('../../models/genURL');
 module.exports = (express) => {
   const router = express.Router();
 
+  // =============================================
   // Create URL
+  // =============================================
   router.post('/urls', (req, res) => {
     const reqBody = req.body;
     reqBody.newUrl = gen.shortUrl(url);
@@ -19,7 +21,9 @@ module.exports = (express) => {
     });
   });
 
+  // =============================================
   // Find All URLs
+  // =============================================
   router.get('/urls', (req, res) => {
     url.all(
     // errorCallback
@@ -32,7 +36,9 @@ module.exports = (express) => {
     });
   });
 
+  // =============================================
   // Find One URL
+  // =============================================
   router.get('/urls/:id', (req, res) => {
     const reqBody = req.body;
     reqBody.id = req.params.id;
@@ -47,7 +53,9 @@ module.exports = (express) => {
     });
   });
 
+  // =============================================
   // Update URL
+  // =============================================
   router.post('/urls/:id', (req, res) => {
     const reqBody = req.body;
     reqBody.id = req.params.id;
