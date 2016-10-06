@@ -31,6 +31,20 @@ To run the server with default settings run
 npm start
 ```
 
+## Debug usage
+
+Turn debug on
+```
+DEBUG=true node src/server.js
+```
+
+Sample debug output
+```
+=================================================
+Server Active on port 3000
+Thu Oct 06 2016 18:29:23 GMT-0400 (EDT)
+=================================================
+```
 
 ## routes
 
