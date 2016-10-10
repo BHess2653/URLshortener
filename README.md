@@ -11,6 +11,7 @@ npm i or npm install
 Install all command line tools
 ```
 npm i -g nodemon
+npm i -g mocha
 ```
 
 ## env
@@ -29,6 +30,13 @@ DB_SCHEMA=mysql
 To run the server with default settings run
 ```
 npm start
+```
+
+## Run the Unit tests
+
+To run the unit tests
+```
+npm test
 ```
 
 ## Debug usage
