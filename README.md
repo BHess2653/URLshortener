@@ -40,10 +40,10 @@ DEBUG=true node src/server.js
 
 Sample debug output
 ```
-=================================================
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 Server Active on port 3000
 Thu Oct 06 2016 18:29:23 GMT-0400 (EDT)
-=================================================
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 ```
 
 ## routes
@@ -56,3 +56,6 @@ Thu Oct 06 2016 18:29:23 GMT-0400 (EDT)
 | POST | /api/v1/urls/:id | [{ "id": 3, "originalUrl": "https://www.google.com/", "newUrl": "akjwfba", "createdAt": "2016-10-05T03:42:31.000Z", "updatedAt": "2016-10-05T03:42:31.000Z" }] |
 | DELETE | /api/v1/urls/:id | [{ 1 }] |
 | GET | /go/:newUrl | [{ "https://www.google.com/" }] |
+
+###### Style Guide reference
+[Airbnb](https://github.com/airbnb/javascript)
