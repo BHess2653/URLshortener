@@ -1,25 +1,25 @@
 const util = require('../../lib/util');
 const db = require('./db');
 
-// =============================================
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // Exports ADD Function
-// =============================================
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 exports.add = (data, err, success) => {
   db.url.create(data).then(success).catch(err);
   util.debug('URL was ' + 'CREATED '.create + 'in Models - ', data);
 };
 
-// =============================================
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // Exports ALL Function
-// =============================================
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 exports.all = (err, success) => {
   db.url.findAll().then(success).catch(err);
   util.debug('URLs found in models ');
 };
 
-// =============================================
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // Exports ONE Function
-// =============================================
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 exports.one = (data, err, success) => {
   db.url.find({
     where: {
@@ -34,9 +34,9 @@ exports.one = (data, err, success) => {
   util.debug('One URL was ' + 'SEARCHED '.read + 'in Models - ', data);
 };
 
-// =============================================
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // Exports UPDATE Function
-// =============================================
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 exports.update = (data, err, success) => {
   db.url.find({
     where: {
@@ -45,13 +45,12 @@ exports.update = (data, err, success) => {
   }).then((existingData) => {
     existingData.updateAttributes(data).then(success).catch(err);
   }).catch(err);
-  console.log('URL was updated from models');
   util.debug('URL was ' + 'UPDATED '.update + 'in Models - ', data);
 };
 
-// =============================================
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // Exports REMOVE Function
-// =============================================
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 exports.remove = (data, err, success) => {
   db.url.destroy({
     where: {
@@ -61,9 +60,9 @@ exports.remove = (data, err, success) => {
   util.debug('URL was ' + 'REMOVED '.delete + 'from Models - ', data);
 };
 
-// =============================================
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // Redirect
-// =============================================
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 exports.go = (data, err, success) => {
   db.url.find({
     where: {
