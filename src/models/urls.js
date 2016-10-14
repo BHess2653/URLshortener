@@ -1,4 +1,4 @@
-const util = require('../../lib/util');
+const utool2 = require('uTool2');
 const db = require('./db');
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -6,7 +6,7 @@ const db = require('./db');
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 exports.add = (data, err, success) => {
   db.url.create(data).then(success).catch(err);
-  util.debug('URL was ' + 'CREATED '.create + 'in Models - ', data);
+  utool2.debug('URL was ' + 'CREATED '.create + 'in Models - ', data);
 };
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -14,7 +14,7 @@ exports.add = (data, err, success) => {
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 exports.all = (err, success) => {
   db.url.findAll().then(success).catch(err);
-  util.debug('URLs found in models ');
+  utool2.debug('URLs found in models ');
 };
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -31,7 +31,7 @@ exports.one = (data, err, success) => {
       nested: true,
     }],
   }).then(success).catch(err);
-  util.debug('One URL was ' + 'SEARCHED '.read + 'in Models - ', data);
+  utool2.debug('One URL was ' + 'SEARCHED '.read + 'in Models - ', data);
 };
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -45,7 +45,7 @@ exports.update = (data, err, success) => {
   }).then((existingData) => {
     existingData.updateAttributes(data).then(success).catch(err);
   }).catch(err);
-  util.debug('URL was ' + 'UPDATED '.update + 'in Models - ', data);
+  utool2.debug('URL was ' + 'UPDATED '.update + 'in Models - ', data);
 };
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -57,7 +57,7 @@ exports.remove = (data, err, success) => {
       id: data.id,
     },
   }).then(success).catch(err);
-  util.debug('URL was ' + 'REMOVED '.delete + 'from Models - ', data);
+  utool2.debug('URL was ' + 'REMOVED '.delete + 'from Models - ', data);
 };
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -69,5 +69,5 @@ exports.go = (data, err, success) => {
       newUrl: data.newUrl,
     },
   }).then(success).catch(err);
-  util.debug('NewURL was ' + 'FOUND '.read + 'in Models - ', data);
+  utool2.debug('NewURL was ' + 'FOUND '.read + 'in Models - ', data);
 };
