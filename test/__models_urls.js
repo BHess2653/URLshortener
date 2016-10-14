@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const request = require('supertest');
 const faker = require('faker');
 const Url = require('../src/models/urls');
-const util = require('../lib/util');
+const utool2 = require('uTool2');
 
 describe('Urls Model', () => {
   let server;
