@@ -1,99 +1,103 @@
 const expect = require('chai').expect;
 const request = require('supertest');
-const faker = require('faker');
 const Url = require('../src/models/urls');
+const gen = require('../src/models/genURL');
 const util = require('../lib/util');
 
 describe('Urls Model', () => {
-  let server;
-  let testUrls;
-  let tempUrl;
+  let testUrl = {
+    url: 'http://www.google.com',
+    shortURL: gen.genUrl('http://www.google.com'),
+  };
 
-  // Test for all Urls
-  it('Gets All', (done) => {
-    Url.all(
-      (err) => {
-        throw new Error(err);
-      },
-      (urls) => {
-        this.testUrls = urls;
-        expect(this.testUrls.length).to.be.above(0);
-        done();
-      }
+  let fakeId;
+  let shortURL;
+
+  // Create user
+  it('CREATE Url', (done) => {
+    // CREATE
+    Url.create(testUrl, (fail) => {
+      util.debug('FAILED to ' + 'CREATE'.create + ' fake Url', fail);
+    }, (url) => {
+      fakeId = url.id;
+      shortURL = url.shortURL;
+      expect(url.url).to.be.equal(testUrl.url);
+      expect(url.shortURL).to.be.equal(testUrl.shortURL);
+      done();
+    }
     );
   });
 
-  // Add a Url
-  it('creates a new Url', (done) => {
-    // Generates a fake Url
-    const fakeUrl = { originalUrl: faker.internet.url() };
-    Url.add(fakeUrl,
-      (err) => {
-        throw new Error(err);
-      },
-      (url) => {
-        // Save the returned data for later use in tests
-        this.tempUrl = url.dataValues;
-        // Url.name returned from model should match url.name supplied
-        expect(url.originalUrl).to.be.equal(fakeUrl.originalUrl);
-        done();
-      }
+  // GET all urls
+  it('GET all Urls', (done) => {
+    // READ all
+    Url.findAll((fail) => {
+      util.debug('FAILED to' + ' READ'.read + ' all users', fail);
+    }, (urls) => {
+      this.testUrls = urls;
+      expect(this.testUrls.length).to.be.above(0);
+      done();
+    }
+  );
+  });
+
+  // GET Url by id
+  it('GET Url by id', (done) => {
+    const testURL = {
+      id: fakeId,
+    };
+  // READ by id
+    Url.find(testUrl, (fail) => {
+      util.debug('FAILED to ' + 'READ'.read + ' by id url', fail);
+    }, (url) => {
+      expect(url.id).to.be.equal(fakeId);
+      done();
+    }
+  );
+  });
+
+  // Redirect
+  it('Redirect', (done) => {
+    const testUrl = {
+      shortURL,
+    };
+  // READ by id
+    Url.go(testUrl, (fail) => {
+      util.debug('FAILED to redirect', fail);
+    }, (url) => {
+      expect(url.shortURL).to.be.equal(shortURL);
+      done();
+    }
     );
   });
 
-  // Find a Url
-  it('Find a Url', (done) => {
-    // Generate a fake Url
-    const targetUrl = this.testUrls[0];
-    Url.one(targetUrl,
-      (err) => {
-        throw new Error(err);
-      },
-      (url) => {
-        // Url.name returned from model should match url.originalUrl supplied
-        expect(url.originalUrl).to.be.equal(targetUrl.originalUrl);
-        done();
-      }
+  // UPDATE a Url
+  it('UPDATE Url', (done) => {
+    // Load in the info for an existing user
+    testUrl = {
+      id: fakeId,
+      url: 'http://www.reddit.com',
+      shortURL: gen.genUrl('http://www.reddit.com'),
+    };
+    // UPDATE
+    Url.update(testUrl, (fail) => {
+      util.debug('failed to ' + 'UPDATE'.update + ' fake url', fail);
+    }, (url) => {
+      expect(url.dataValues.url).to.be.equal(testUrl.url);
+      done();
+    }
     );
   });
 
-  // Update a Url
-  it('Update a Url', (done) => {
-    // Load in the info for an existing url
-    const updateUrl = this.tempUrl;
-    updateUrl.originalUrl = 'Not A Real Url';
-
-    // Call url model for updating
-    Url.update(updateUrl,
-      (err) => {
-        throw new Error(err);
-      },
-      (url) => {
-        // Save the returned data for later use in tests
-        this.tempUrl = url;
-        // Url.name returned from model should match url.originalUrl supplied
-        expect(url.originalUrl).to.be.equal(updateUrl.originalUrl);
-        done();
-      }
-    );
-  });
-
-  // Remove a Url
-  it('Remove a Url', (done) => {
-    // Load in the info for an existing url
-    const removeUrl = this.tempUrl;
-    removeUrl.force = true;
-
-    // Call url model for updating
-    Url.remove(removeUrl,
-      (err) => {
-        throw new Error(err);
-      },
-      (response) => {
-        // if successfully removed a 1 should be returned
-        expect(response).to.be.equal(1);
-        done();
-      }
+  // DELETE Url
+  it('DELETE Url', (done) => {
+    // DELETE
+    Url.destroy(testUrl, (fail) => {
+      util.debug('FAILED to ' + 'DELETE '.delete + 'fake url', fail);
+    }, (res) => {
+      expect(res).to.be.equal(1);
+      done();
+    }
     );
   });
 });
