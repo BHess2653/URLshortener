@@ -1,23 +1,21 @@
 const expect = require('chai').expect;
-const request = require('supertest');
-const Url = require('../src/models/urls');
+const url = require('../src/models/urls');
 const gen = require('../src/models/genURL');
 const util = require('../lib/util');
 
 describe('Urls Model', () => {
   let testUrl = {
-    url: 'http://www.google.com',
-    shortURL: gen.genUrl('http://www.google.com'),
+    originalUrl: 'http://www.google.com',
+    newUrl: gen.shortUrl('http://www.google.com'),
   };
-
   let fakeId;
   let shortURL;
 
   // Create user
   it('CREATE Url', (done) => {
     // CREATE
-    Url.create(testUrl, (fail) => {
-      util.debug('FAILED to ' + 'CREATE'.create + ' fake Url', fail);
+    url.add(testUrl, (fail) => {
+      util.debug('FAILED to ' + 'CREATE'.create + ' fake Url ', fail);
     }, (url) => {
       fakeId = url.id;
       shortURL = url.shortURL;
@@ -31,8 +29,8 @@ describe('Urls Model', () => {
   // GET all urls
   it('GET all Urls', (done) => {
     // READ all
-    Url.findAll((fail) => {
-      util.debug('FAILED to' + ' READ'.read + ' all users', fail);
+    url.all((fail) => {
+      util.debug('FAILED to' + ' READ'.read + ' all users ', fail);
     }, (urls) => {
       this.testUrls = urls;
       expect(this.testUrls.length).to.be.above(0);
@@ -43,12 +41,12 @@ describe('Urls Model', () => {
 
   // GET Url by id
   it('GET Url by id', (done) => {
-    const testURL = {
+    const testUrl = {
       id: fakeId,
     };
   // READ by id
-    Url.find(testUrl, (fail) => {
-      util.debug('FAILED to ' + 'READ'.read + ' by id url', fail);
+    url.one(testUrl, (fail) => {
+      util.debug('FAILED to ' + 'READ'.read + ' by id url ', fail);
     }, (url) => {
       expect(url.id).to.be.equal(fakeId);
       done();
@@ -56,32 +54,17 @@ describe('Urls Model', () => {
   );
   });
 
-  // Redirect
-  it('Redirect', (done) => {
-    const testUrl = {
-      shortURL,
-    };
-  // READ by id
-    Url.go(testUrl, (fail) => {
-      util.debug('FAILED to redirect', fail);
-    }, (url) => {
-      expect(url.shortURL).to.be.equal(shortURL);
-      done();
-    }
-    );
-  });
-
   // UPDATE a Url
   it('UPDATE Url', (done) => {
     // Load in the info for an existing user
     testUrl = {
       id: fakeId,
-      url: 'http://www.reddit.com',
-      shortURL: gen.genUrl('http://www.reddit.com'),
+      originalUrl: 'http://www.reddit.com',
+      newUrl: gen.shortUrl('http://www.reddit.com'),
     };
     // UPDATE
-    Url.update(testUrl, (fail) => {
-      util.debug('failed to ' + 'UPDATE'.update + ' fake url', fail);
+    url.update(testUrl, (fail) => {
+      util.debug('failed to ' + 'UPDATE'.update + ' fake url ', fail);
     }, (url) => {
       expect(url.dataValues.url).to.be.equal(testUrl.url);
       done();
@@ -92,10 +75,25 @@ describe('Urls Model', () => {
   // DELETE Url
   it('DELETE Url', (done) => {
     // DELETE
-    Url.destroy(testUrl, (fail) => {
+    url.remove(testUrl, (fail) => {
       util.debug('FAILED to ' + 'DELETE '.delete + 'fake url', fail);
     }, (res) => {
       expect(res).to.be.equal(1);
+      done();
+    }
+    );
+  });
+
+  // Redirect
+  it('Redirect', (done) => {
+    const testUrl = {
+      newUrl: shortURL,
+    };
+  // READ by id
+    url.go(testUrl, (fail) => {
+      util.debug('FAILED to redirect ', fail);
+    }, (url) => {
+      expect(gen.newUrl).to.be.equal(shortURL);
       done();
     }
     );
